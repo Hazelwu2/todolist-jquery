@@ -36,6 +36,13 @@ const deleteTodo = (e) => {
   $(e.target).parent().closest('li').remove()
 }
 
+// 清除已完成項目
+const clearCompletedTodo = () => {
+  $('.todolist__item').find('.completed').fadeOut(500, () => {
+    $('.todolist__item').find('.completed').remove()
+  })
+}
+
 
 // 監聽
 $(() => {
@@ -50,13 +57,34 @@ $(() => {
   })
 
   // 每條待辦事項加上 class completed, no-completed
-  $('.todolist__item').on('click', 'li', (e) => {
+  $('.todolist__item li').on('click', 'input:checked', (e) => {
     const li = $(e.target).parent()
 
     if (li.hasClass('completed')) {
-      li.removeClass('completed').addClass('no-completed')
+      li.removeClass('completed')
+      li.addClass('no-completed')
     } else {
-      li.removeClass('no-completed').addClass('completed')
+      li.removeClass('no-completed')
+      li.addClass('completed')
     }
+
+  })
+
+  // 篩選全部
+  $('.todolist__tabs').on('click', '.all', () => {
+    $('.todolist__item').children().show()
+  })
+
+  // 篩選待完成
+  $('.todolist__tabs').on('click', '.no-completed', () => {
+    $('.todolist__item').find('.completed').hide()
+    $('.todolist__item').find('.no-completed').show()
+  })
+
+  // 篩選已完成
+  $('.todolist__tabs').on('click', '.completed', () => {
+    console.log($('.todolist__item').children('.no-completed'))
+    $('.todolist__item').find('.completed').show()
+    $('.todolist__item').find('.no-completed').hide()
   })
 })
