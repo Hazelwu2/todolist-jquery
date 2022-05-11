@@ -5,7 +5,7 @@ const clearInput = () => {
 
 const appendItem = () => {
   const value = $('#todo').val()
-  $('.todolist__item').append(`<li>
+  $('.todolist__item').append(`<li class="no-completed">
     <input class="todolist__input" type="checkbox" />
     <span>${value}</span>
     <a class="delete" href="#">
@@ -41,10 +41,22 @@ const deleteTodo = (e) => {
 $(() => {
   $('.todolist__item').on('click', '.delete', (e) => deleteTodo(e))
 
+  // 狀態：全部、待完成、已完成
   $('.todolist__tabs li').each(function () {
     $(this).click(function () {
       $(this).siblings().find('a').removeClass('active')
       $(this).find('a').addClass('active')
     })
+  })
+
+  // 每條待辦事項加上 class completed, no-completed
+  $('.todolist__item').on('click', 'li', (e) => {
+    const li = $(e.target).parent()
+
+    if (li.hasClass('completed')) {
+      li.removeClass('completed').addClass('no-completed')
+    } else {
+      li.removeClass('no-completed').addClass('completed')
+    }
   })
 })
