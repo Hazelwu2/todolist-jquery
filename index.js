@@ -31,6 +31,13 @@ const addNewTodo = () => {
   clearInput()
 }
 
+// 更新已完成項目
+const updateCompletedCount = () => {
+  const count = $('.todolist__item').find('.completed').length
+
+  $('.todolist__info').find('a').text(count)
+}
+
 // 刪除待辦
 const deleteTodo = (e) => {
   $(e.target).parent().closest('li').remove()
@@ -40,7 +47,9 @@ const deleteTodo = (e) => {
 const clearCompletedTodo = () => {
   $('.todolist__item').find('.completed').fadeOut(500, () => {
     $('.todolist__item').find('.completed').remove()
+    updateCompletedCount()
   })
+
 }
 
 
@@ -57,7 +66,7 @@ $(() => {
   })
 
   // 每條待辦事項加上 class completed, no-completed
-  $('.todolist__item li').on('click', 'input:checked', (e) => {
+  $('.todolist__item li').on('click', 'input', (e) => {
     const li = $(e.target).parent()
 
     if (li.hasClass('completed')) {
@@ -67,6 +76,9 @@ $(() => {
       li.removeClass('no-completed')
       li.addClass('completed')
     }
+
+    // 更新已完成項目
+    updateCompletedCount()
 
   })
 
@@ -83,7 +95,6 @@ $(() => {
 
   // 篩選已完成
   $('.todolist__tabs').on('click', '.completed', () => {
-    console.log($('.todolist__item').children('.no-completed'))
     $('.todolist__item').find('.completed').show()
     $('.todolist__item').find('.no-completed').hide()
   })
