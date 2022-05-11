@@ -79,6 +79,9 @@ input[type=checkbox] {
   -ms-flex-pack: distribute;
       justify-content: space-around;
 }
+.todolist__tabs li {
+  width: 100%;
+}
 .todolist__tabs a {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -89,7 +92,7 @@ input[type=checkbox] {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  width: calc((100vw - 32px) / 3);
+  width: 100%;
   height: 51px;
   position: relative;
 }
@@ -122,6 +125,10 @@ input[type=checkbox] {
 .todolist__table .todolist__item li a {
   margin-left: auto;
   margin-right: 18px;
+}
+.todolist__table .todolist__item input:checked + span {
+  text-decoration: line-through;
+  color: #e5e5e5;
 }
 .todolist__info {
   height: 88px;
